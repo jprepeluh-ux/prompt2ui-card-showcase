@@ -153,17 +153,17 @@
 /* ── Image area ──────────────────────────────────────────────────────────── */
 
 .glass-card__image-wrap {
-  padding-top: 2rem;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  overflow: hidden;
 }
 
 .glass-card__image {
   width: 100%;
-  height: 220px;
+  height: 260px;
   object-fit: contain;
-  object-position: center;
+  object-position: center bottom;
   display: block;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
