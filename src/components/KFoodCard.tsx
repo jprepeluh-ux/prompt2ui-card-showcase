@@ -62,7 +62,7 @@ const kfoodItems: KFoodCardProps[] = [
     subtitle: 'Aged kimchi, gochujang aioli, crispy shallots.',
     price: '₩ 12,000',
     variant: 'orange',
-    imageSrc: '/mat/korea_01.png',
+    imageSrc: '/korea_01.png',
     index: 0,
   },
   {
@@ -70,7 +70,7 @@ const kfoodItems: KFoodCardProps[] = [
     subtitle: 'Double-fried. Honey-glazed. 48-hour brine.',
     price: '₩ 18,500',
     variant: 'yellow',
-    imageSrc: '/mat/korea_02.png',
+    imageSrc: '/korea_02.png',
     index: 1,
   },
   {
@@ -78,7 +78,7 @@ const kfoodItems: KFoodCardProps[] = [
     subtitle: 'Rice cakes, fire sauce, melted cheese pull.',
     price: '₩ 10,000',
     variant: 'red',
-    imageSrc: '/mat/korea_03.png',
+    imageSrc: '/korea_03.png',
     index: 2,
   },
 ]
