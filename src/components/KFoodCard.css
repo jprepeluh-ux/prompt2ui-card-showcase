@@ -411,6 +411,14 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
+  .kfood-card__title {
+    font-size: 20px;
+  }
+
+  .kfood-card__subtitle {
+    font-size: 14px;
+  }
 }
 
 /* ── Reduced motion ──────────────────────────────────────── */
