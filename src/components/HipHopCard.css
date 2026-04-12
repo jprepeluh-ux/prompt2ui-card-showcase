@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Barlow+Semi+Condensed:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ── New Drop — Hip-Hop Collection ─────────────────────────────────────── */
+
+.hh-showcase {
+  padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 8vw, 96px);
+  background: oklch(13% 0.018 32);
+  text-align: left;
+}
+
+.hh-showcase__header {
+  margin: 0 auto clamp(40px, 6vw, 56px);
+  max-width: 920px;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+.hh-showcase__eyebrow {
+  display: block;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: oklch(62% 0.185 32);
+  margin: 0 0 10px;
+}
+
+.hh-showcase__title {
+  font-family: 'Big Shoulders Display', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 9vw, 96px);
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  color: oklch(94% 0.010 70);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ── Grid ──────────────────────────────────────────────────────────────── */
+
+.hh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+/* ── Card reveal animation ─────────────────────────────────────────────── */
+
+@keyframes hhReveal {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Card ──────────────────────────────────────────────────────────────── */
+
+.hh-card {
+  background: oklch(17% 0.022 34);
+  overflow: hidden;
+  cursor: pointer;
+  animation: hhReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image area */
+.hh-card__image-wrap {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.hh-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  background: oklch(22% 0.025 32);
+}
+
+.hh-card:hover .hh-card__image,
+.hh-card:focus-within .hh-card__image {
+  transform: scale(1.05);
+}
+
+/* Duotone overlay — the signature interaction */
+.hh-card__duotone {
+  position: absolute;
+  inset: 0;
+  background: oklch(62% 0.185 32);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hh-card:hover .hh-card__duotone,
+.hh-card:focus-within .hh-card__duotone {
+  opacity: 0.65;
+}
+
+/* Tag */
+.hh-card__tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: oklch(13% 0.018 32);
+  background: oklch(62% 0.185 32);
+  padding: 5px 11px;
+  z-index: 2;
+  /* Touch-freundliche Mindesthöhe */
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Body ──────────────────────────────────────────────────────────────── */
+
+.hh-card__body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.hh-card__category {
+  display: block;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: oklch(70% 0.025 36); /* was 52% — lightened to 5.8:1 on dark bg */
+  margin: 0 0 10px;
+}
+
+.hh-card__name {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 900;
+  font-size: clamp(40px, 12cqi, 56px);
+  line-height: 0.88;
+  letter-spacing: -0.018em;
+  color: oklch(94% 0.010 70);
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+.hh-card__rule {
+  height: 1px;
+  background: oklch(26% 0.028 32);
+  margin: 0 0 14px;
+  flex-shrink: 0;
+}
+
+.hh-card__desc {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: oklch(66% 0.020 35); /* was 58% — lightened to 4.9:1 on dark bg */
+  margin: 0 0 22px;
+  max-width: 42ch;
+}
+
+/* Footer: price + CTA */
+.hh-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.hh-card__price {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: oklch(62% 0.185 32);
+}
+
+/* CTA */
+.hh-card__cta {
+  background: oklch(62% 0.185 32);
+  color: oklch(13% 0.018 32);
+  border: none;
+  border-radius: 0;
+  padding: 0 18px;
+  min-height: 44px; /* WCAG 2.5.5 touch target */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.22s ease, color 0.22s ease;
+  white-space: nowrap;
+}
+
+.hh-card__cta:hover {
+  background: oklch(92% 0.010 70);
+  color: oklch(13% 0.018 32);
+}
+
+.hh-card__cta:focus-visible {
+  outline: 2px solid oklch(62% 0.185 32);
+  outline-offset: 3px;
+}
+
+.hh-card__cta svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hh-card:hover .hh-card__cta svg,
+.hh-card__cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .hh-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .hh-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hh-card {
+    animation: none;
+  }
+
+  .hh-card__image,
+  .hh-card__duotone,
+  .hh-card__cta,
+  .hh-card__cta svg {
+    transition: none;
+  }
+
+  .hh-card:hover .hh-card__image,
+  .hh-card:focus-within .hh-card__image {
+    transform: none;
+  }
+}

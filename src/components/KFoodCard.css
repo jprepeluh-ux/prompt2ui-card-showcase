@@ -1,0 +1,425 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=DM+Sans:wght@300;400&display=swap');
+
+/* ── Seoul Night Bites ───────────────────────────────────── */
+
+.kfood-showcase {
+  background: #0a0a0a;
+  padding: clamp(80px, 10vw, 120px) 0;
+  overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.kfood-showcase__header {
+  text-align: center;
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+
+.kfood-showcase__title {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(64px, 12vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
+  paint-order: stroke fill;
+  margin: 0 auto clamp(16px, 2vw, 24px);
+  animation: neonHeadlineFlicker 8s infinite;
+  filter:
+    drop-shadow(0 0 6px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 20px rgba(255, 255, 255, 0.4))
+    drop-shadow(0 0 50px rgba(255, 0, 68, 0.5))
+    drop-shadow(0 0 100px rgba(255, 0, 68, 0.2));
+}
+
+.kfood-showcase__sub {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #444;
+  margin: 0;
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+
+.kfood-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+/* ── Variant colors ──────────────────────────────────────── */
+
+.kfood--orange {
+  --accent:     #FF6200;
+  --accent-low: rgba(255, 98, 0, 0.12);
+  --card-skew:  -5deg;
+}
+.kfood--yellow {
+  --accent:     #FFE600;
+  --accent-low: rgba(255, 230, 0, 0.10);
+  --card-skew:  4deg;
+}
+.kfood--red {
+  --accent:     #FF0044;
+  --accent-low: rgba(255, 0, 68, 0.12);
+  --card-skew:  -4deg;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+.kfood-card {
+  background: #121212;
+  border-radius: 48px;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  box-shadow:
+    0 0 20px rgba(255, 0, 68, 0.3),
+    0 0 50px rgba(255, 0, 68, 0.1);
+  display: flex;
+  flex-direction: column;
+  animation: cardReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  cursor: pointer;
+  transform: skewX(var(--card-skew, -4deg));
+}
+
+.kfood-card:hover {
+  transform: skewX(var(--card-skew, -4deg));
+  border: 1.5px solid rgba(255, 0, 68, 0.7);
+  box-shadow:
+    0 0 12px rgba(255, 0, 68, 0.8),
+    0 0 30px rgba(255, 0, 68, 0.4),
+    0 0 60px rgba(255, 0, 68, 0.15);
+}
+
+/* ── Image area (top, 16/9) ──────────────────────────────── */
+
+.kfood-card__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--accent-low);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.kfood-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kfood-card:hover .kfood-card__image {
+  transform: scale(1.05);
+}
+
+/* ── Price tag (over image, bottom-right) ────────────────── */
+
+.kfood-card__price-tag {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 6px 10px 4px;
+  text-align: center;
+  transform: rotate(-2deg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  min-width: 96px;
+}
+
+.kfood-card__price-amount {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  color: #000;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+.kfood-card__barcode {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 18px;
+  justify-content: center;
+  margin-bottom: 3px;
+}
+
+.kfood-card__barcode-line {
+  width: 1.5px;
+  background: #000;
+  height: 100%;
+}
+.kfood-card__barcode-line:nth-child(3n)  { height: 80%; }
+.kfood-card__barcode-line:nth-child(5n)  { height: 60%; width: 2.5px; }
+.kfood-card__barcode-line:nth-child(7n)  { height: 90%; }
+.kfood-card__barcode-line:nth-child(11n) { width: 2px; }
+
+.kfood-card__barcode-num {
+  display: block;
+  font-family: monospace;
+  font-size: 6px;
+  color: #444;
+  letter-spacing: 0.04em;
+}
+
+/* ── Content row (side label + body) ────────────────────── */
+
+.kfood-card__content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+/* ── Side label ──────────────────────────────────────────── */
+
+.kfood-card__side-banner {
+  width: 28px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0.4;
+}
+
+.kfood-card__side-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.kfood-card__side-hangul {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: 11px;
+  color: #fff;
+  font-weight: 300;
+}
+
+/* ── Body ────────────────────────────────────────────────── */
+
+.kfood-card__body {
+  flex: 1;
+  padding: 20px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.kfood-card__title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word;
+  text-align: left;
+}
+
+.kfood-card__subtitle {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  color: #777;
+  margin: 0;
+  text-align: left;
+}
+
+/* ── CTA ─────────────────────────────────────────────────── */
+
+@keyframes neonFlicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%           { opacity: 0.7; }
+  97%           { opacity: 1; }
+  98%           { opacity: 0.5; }
+  99%           { opacity: 1; }
+}
+
+@keyframes neonHeadlineFlicker {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.9))
+      drop-shadow(0 0 20px rgba(255, 255, 255, 0.4))
+      drop-shadow(0 0 50px rgba(255, 0, 68, 0.5))
+      drop-shadow(0 0 100px rgba(255, 0, 68, 0.2));
+  }
+  /* Rotes Neon pulsiert auf */
+  15% {
+    filter:
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.85))
+      drop-shadow(0 0 18px rgba(255, 255, 255, 0.35))
+      drop-shadow(0 0 70px rgba(255, 0, 68, 0.85))
+      drop-shadow(0 0 120px rgba(255, 0, 68, 0.45))
+      drop-shadow(0 0 160px rgba(255, 0, 68, 0.2));
+  }
+  /* Kurzes Dimmen der weißen Röhre, Rot bleibt */
+  16% {
+    filter:
+      drop-shadow(0 0 3px rgba(255, 255, 255, 0.5))
+      drop-shadow(0 0 10px rgba(255, 255, 255, 0.15))
+      drop-shadow(0 0 60px rgba(255, 0, 68, 0.75))
+      drop-shadow(0 0 110px rgba(255, 0, 68, 0.35));
+  }
+  17% {
+    filter:
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.9))
+      drop-shadow(0 0 20px rgba(255, 255, 255, 0.4))
+      drop-shadow(0 0 65px rgba(255, 0, 68, 0.8))
+      drop-shadow(0 0 115px rgba(255, 0, 68, 0.4));
+  }
+  /* Rot zieht sich zurück */
+  35% {
+    filter:
+      drop-shadow(0 0 5px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 18px rgba(255, 255, 255, 0.32))
+      drop-shadow(0 0 40px rgba(255, 0, 68, 0.38))
+      drop-shadow(0 0 80px rgba(255, 0, 68, 0.15));
+  }
+  /* Zweites rotes Aufflackern */
+  65% {
+    filter:
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.88))
+      drop-shadow(0 0 20px rgba(255, 255, 255, 0.38))
+      drop-shadow(0 0 80px rgba(255, 0, 68, 0.9))
+      drop-shadow(0 0 130px rgba(255, 0, 68, 0.5))
+      drop-shadow(0 0 180px rgba(255, 0, 68, 0.22));
+  }
+  66% {
+    filter:
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.6))
+      drop-shadow(0 0 12px rgba(255, 255, 255, 0.2))
+      drop-shadow(0 0 68px rgba(255, 0, 68, 0.78))
+      drop-shadow(0 0 118px rgba(255, 0, 68, 0.38));
+  }
+  67% {
+    filter:
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.9))
+      drop-shadow(0 0 20px rgba(255, 255, 255, 0.4))
+      drop-shadow(0 0 75px rgba(255, 0, 68, 0.85))
+      drop-shadow(0 0 125px rgba(255, 0, 68, 0.42));
+  }
+  /* Rot läuft aus */
+  85% {
+    filter:
+      drop-shadow(0 0 5px rgba(255, 255, 255, 0.82))
+      drop-shadow(0 0 17px rgba(255, 255, 255, 0.3))
+      drop-shadow(0 0 45px rgba(255, 0, 68, 0.42))
+      drop-shadow(0 0 90px rgba(255, 0, 68, 0.18));
+  }
+}
+
+.kfood-card__cta {
+  align-self: center;
+  margin-top: auto;
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  color: #FF0044;
+  border: 1.5px solid #FF0044;
+  border-radius: 4px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skewX(-6deg);
+  /* Resting neon: subtle glow, slight flicker */
+  box-shadow:
+    0 0 6px rgba(255, 0, 68, 0.4),
+    inset 0 0 6px rgba(255, 0, 68, 0.08);
+  text-shadow: 0 0 6px rgba(255, 0, 68, 0.6);
+  animation: neonFlicker 6s infinite;
+  transition: box-shadow 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.kfood-card__cta:hover {
+  color: #fff;
+  border-color: #FF0044;
+  box-shadow:
+    0 0 8px #FF0044,
+    0 0 20px #FF0044,
+    0 0 40px rgba(255, 0, 68, 0.6),
+    0 0 80px rgba(255, 0, 68, 0.3),
+    inset 0 0 12px rgba(255, 0, 68, 0.15);
+  text-shadow:
+    0 0 6px #fff,
+    0 0 12px #FF0044,
+    0 0 24px #FF0044;
+  animation: none;
+}
+
+.kfood-card__cta:active {
+  box-shadow:
+    0 0 4px #FF0044,
+    0 0 10px rgba(255, 0, 68, 0.5),
+    inset 0 0 8px rgba(255, 0, 68, 0.2);
+}
+
+.kfood-card__cta-label {
+  display: inline-block;
+  transform: skewX(6deg);
+  font-weight: 700;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .kfood-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .kfood-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .kfood-card,
+  .kfood-card:hover {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+}

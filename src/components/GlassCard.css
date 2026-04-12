@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Barlow:wght@400;500&display=swap');
+
+/* ── Transparent Labs — High Tech Glassmorphism ──────────────────────────── */
+
+.glass-showcase {
+  padding: clamp(56px, 8vw, 96px) 0 clamp(80px, 10vw, 112px);
+  background: oklch(7% 0.012 240);
+  /* light sources that bleed through the glass cards */
+  background-image:
+    radial-gradient(ellipse 50% 40% at 15% 25%, oklch(55% 0.22 215 / 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 35% at 85% 65%, oklch(55% 0.20 290 / 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 90%, oklch(60% 0.18 155 / 0.12) 0%, transparent 50%);
+  text-align: left;
+}
+
+.glass-showcase__header {
+  margin: 0 auto clamp(40px, 6vw, 64px);
+  max-width: 960px;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+.glass-showcase__eyebrow {
+  display: block;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: oklch(60% 0.18 215);
+  margin: 0 0 12px;
+}
+
+.glass-showcase__title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: clamp(48px, 7.5vw, 84px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: oklch(96% 0.006 240);
+  margin: 0;
+}
+
+.glass-showcase__title span {
+  display: block;
+  color: oklch(60% 0.18 215);
+  font-weight: 400;
+}
+
+/* ── Grid ──────────────────────────────────────────────────────────────── */
+
+.glass-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+/* ── Card reveal ─────────────────────────────────────────────────────────── */
+
+@keyframes glassReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Card gradient outline ───────────────────────────────────────────────── */
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ── Variant accent tokens ───────────────────────────────────────────────── */
+
+/* --accent-rgb needed for rgba() in gradient border (oklch not supported there) */
+.glass--neural  { --glass-accent: oklch(68% 0.20 210); --accent-rgb: 0, 175, 220;   }
+.glass--quantum { --glass-accent: oklch(64% 0.22 292); --accent-rgb: 140, 90, 230;  }
+.glass--drive   { --glass-accent: oklch(66% 0.19 154); --accent-rgb: 50, 185, 130;  }
+
+/* ── Card — the glass treatment ─────────────────────────────────────────── */
+
+.glass-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  box-shadow:
+    0 0 15px rgba(var(--accent-rgb), 0.15),
+    0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  animation: glassReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  container-type: inline-size;
+}
+
+/*
+  Accent hairline — sits exactly on the border edge.
+  border-radius: 24px matches the card so corners don't overshoot.
+  pointer-events: none so it never blocks clicks.
+*/
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  border-radius: 24px 24px 0 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--accent-rgb), 0.9),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+.glass-card:hover,
+.glass-card:focus-within {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.30);
+  transform: translateY(-5px);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    0 0 25px rgba(var(--accent-rgb), 0.20),
+    0 16px 48px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* ── Image area ──────────────────────────────────────────────────────────── */
+
+.glass-card__image-wrap {
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-card__image {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover .glass-card__image,
+.glass-card:focus-within .glass-card__image {
+  transform: scale(1.05);
+}
+
+/* Per-variant glow — drop-shadow folgt der Produktsilhouette */
+.glass--neural .glass-card__image {
+  filter: drop-shadow(0 0 25px oklch(68% 0.20 210 / 0.4));
+}
+.glass--quantum .glass-card__image {
+  filter: drop-shadow(0 0 25px oklch(64% 0.22 292 / 0.4));
+}
+.glass--drive .glass-card__image {
+  filter: drop-shadow(0 0 25px oklch(66% 0.19 154 / 0.4));
+}
+
+/* ── Card header area ────────────────────────────────────────────────────── */
+
+.glass-card__top {
+  padding: 24px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.glass-card__category {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--glass-accent);
+}
+
+.glass-card__tag {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--glass-accent);
+  border: 1px solid var(--glass-accent);
+  padding: 4px 8px;
+  line-height: 1;
+  border-radius: 100px;
+  opacity: 0.8;
+}
+
+/* ── Body ──────────────────────────────────────────────────────────────── */
+
+.glass-card__body {
+  padding: 0 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.glass-card__name {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: clamp(18px, 6cqi, 22px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: oklch(96% 0.006 240);
+  margin: 0 0 10px;
+}
+
+.glass-card__desc {
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: oklch(70% 0.010 240);
+  margin: 0 0 20px;
+  max-width: 38ch;
+}
+
+/* ── Tech specs ──────────────────────────────────────────────────────────── */
+
+.glass-card__specs {
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* hairline top border */
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 16px;
+}
+
+.glass-card__spec {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.glass-card__spec-label {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: oklch(50% 0.010 240);
+}
+
+.glass-card__spec-value {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: oklch(82% 0.010 240);
+  text-align: right;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.glass-card__footer {
+  padding: 0 24px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.glass-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  line-height: 1;
+  color: oklch(96% 0.006 240);
+}
+
+.glass-card__price-currency {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.glass-card__price-amount {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* CTA — solid accent, contrasts against glass */
+.glass-card__cta {
+  position: relative;
+  background: oklch(68% 0.20 210);
+  color: oklch(10% 0.010 240);
+  border: none;
+  border-radius: 8px;
+  padding: 0 20px;
+  min-height: 40px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform-origin: right bottom;
+  filter: brightness(1) drop-shadow(4px 4px 0 oklch(68% 0.20 210 / 0));
+  transition: filter 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 1px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.glass-card__cta:hover {
+  filter: brightness(1.15) drop-shadow(4px 4px 0 oklch(68% 0.20 210 / 0.5));
+  transform: scale(1.04);
+  transform-origin: right bottom;
+}
+
+.glass-card__cta:active {
+  filter: brightness(0.9);
+  transform: scale(0.97);
+}
+
+.glass-card__cta:focus-visible {
+  outline: 2px solid var(--glass-accent);
+  outline-offset: 3px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .glass-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .glass-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-card {
+    animation: none;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .glass-card__cta {
+    transition: none;
+  }
+
+  .glass-card:hover,
+  .glass-card:focus-within {
+    transform: none;
+  }
+}

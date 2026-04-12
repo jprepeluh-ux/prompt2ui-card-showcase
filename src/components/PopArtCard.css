@@ -1,0 +1,502 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&family=Quicksand:wght@400;600&display=swap');
+
+/* ── Fresh Chaos — Pop Art Collection ──────────────────────────────────── */
+
+.pop-showcase {
+  padding: clamp(56px, 8vw, 96px) 0 clamp(80px, 10vw, 120px);
+  background: oklch(97% 0.022 140);
+  text-align: left;
+  overflow: visible;
+}
+
+.pop-showcase__header {
+  margin: 0 auto clamp(40px, 6vw, 72px);
+  max-width: 960px;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+.pop-showcase__eyebrow {
+  display: block;
+  font-family: 'Quicksand', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: oklch(44% 0.24 352); /* 4.7:1 contrast on lime bg */
+  margin: 0 0 10px;
+}
+
+.pop-showcase__title {
+  font-family: 'Titan One', system-ui, sans-serif;
+  font-size: clamp(54px, 9vw, 96px);
+  line-height: 0.90;
+  letter-spacing: -0.02em;
+  color: oklch(11% 0.015 140);
+  margin: 0;
+}
+
+.pop-showcase__title-outline {
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 3px oklch(65% 0.28 352);
+  transform: rotate(-1.5deg);
+  transform-origin: 0 50%;
+}
+
+/* ── Grid — Collage layout ─────────────────────────────────────────────── */
+
+.pop-grid {
+  padding: 16px clamp(24px, 6vw, 72px) 88px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  align-items: start;
+  gap: 24px;
+  max-width: 960px;
+  overflow: visible;
+  position: relative;
+}
+
+/* Collage stagger — intentionally off-kilter, not broken */
+.pop-grid > div:nth-child(1) {
+  transform: rotate(-3deg);
+  position: relative;
+  z-index: 2;
+  margin-top: 32px;
+  backface-visibility: hidden;
+}
+.pop-grid > div:nth-child(2) {
+  transform: rotate(2.5deg);
+  position: relative;
+  z-index: 3;
+  margin-top: -16px;
+  backface-visibility: hidden;
+}
+.pop-grid > div:nth-child(3) {
+  transform: rotate(-1.5deg);
+  position: relative;
+  z-index: 1;
+  margin-top: 52px;
+  backface-visibility: hidden;
+}
+
+/* ── Card reveal animation ─────────────────────────────────────────────── */
+
+@keyframes popReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Accent tokens per variant ─────────────────────────────────────────── */
+
+.pop--neon {
+  --pop-accent:      oklch(65% 0.28 352);
+  --pop-accent-dark: oklch(8% 0.010 340);
+  --pop-body-hover:  oklch(97% 0.022 352);
+  --name-rotate:     -8deg;
+}
+.pop--tee {
+  --pop-accent:      oklch(80% 0.20 195);
+  --pop-accent-dark: oklch(12% 0.015 200);
+  --pop-body-hover:  oklch(97% 0.016 195);
+  --name-rotate:     -4deg;
+}
+.pop--figure {
+  --pop-accent:      oklch(83% 0.22 130);
+  --pop-accent-dark: oklch(12% 0.015 130);
+  --pop-body-hover:  oklch(97% 0.018 130);
+  --name-rotate:     -9deg;
+}
+
+/* ── Slot (the article) ─────────────────────────────────────────────────── */
+
+.pop-slot {
+  position: relative;
+  overflow: visible; /* images bleed outside */
+  display: flex;
+  flex-direction: column;
+  animation: popReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  cursor: pointer;
+  container-type: inline-size;
+}
+
+/* ── Image wrap — aggressive asymmetric bleeds ──────────────────────────── */
+
+.pop-slot__image-wrap {
+  position: relative;
+  z-index: 3;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* Overlap into clip-body below */
+  margin-bottom: -52px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dramatic bleeds — images visibly burst outside card edges */
+.pop--neon .pop-slot__image-wrap {
+  margin-left: -30px;
+  margin-right: -10px;
+  margin-top: -18px;
+  transform: rotate(3.5deg);
+  transform-origin: bottom center;
+}
+.pop--tee .pop-slot__image-wrap {
+  margin-left: -6px;
+  margin-right: -36px;
+  margin-top: -14px;
+  transform: rotate(-2.8deg);
+  transform-origin: bottom left;
+}
+.pop--figure .pop-slot__image-wrap {
+  margin-left: -24px;
+  margin-right: -20px;
+  margin-top: -22px;
+  transform: rotate(2.2deg);
+  transform-origin: bottom right;
+}
+
+.pop-slot__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  background: oklch(88% 0.022 140);
+}
+
+.pop-slot:hover .pop-slot__image,
+.pop-slot:focus-within .pop-slot__image {
+  transform: scale(1.06);
+}
+
+/* Subtle un-tilt on hover — image wrap drifts toward upright, adding life */
+.pop-slot.pop--neon:hover .pop-slot__image-wrap,
+.pop-slot.pop--neon:focus-within .pop-slot__image-wrap {
+  transform: rotate(1.8deg);
+}
+.pop-slot.pop--tee:hover .pop-slot__image-wrap,
+.pop-slot.pop--tee:focus-within .pop-slot__image-wrap {
+  transform: rotate(-1.2deg);
+}
+.pop-slot.pop--figure:hover .pop-slot__image-wrap,
+.pop-slot.pop--figure:focus-within .pop-slot__image-wrap {
+  transform: rotate(0.8deg);
+}
+
+/* ── THE SPLASH — neon burst from center ──────────────────────────────── */
+
+.pop-slot__splash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, var(--pop-accent) 0%, transparent 68%);
+  opacity: 0;
+  transform: scale(0.08);
+  transform-origin: 50% 50%;
+  mix-blend-mode: hard-light;
+  will-change: transform, opacity;
+  transition:
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pop-slot:hover .pop-slot__splash,
+.pop-slot:focus-within .pop-slot__splash {
+  transform: scale(0.08);
+  opacity: 0;
+}
+
+/* ── Badge — rotating collector sticker ─────────────────────────────────── */
+
+.pop-slot__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: 'Titan One', sans-serif;
+  font-size: 10px;
+  color: var(--pop-accent-dark);
+  background: var(--pop-accent);
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.1;
+  z-index: 4;
+  transform: rotate(14deg);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pop-slot:hover .pop-slot__badge,
+.pop-slot:focus-within .pop-slot__badge {
+  transform: rotate(0deg);
+}
+
+/* ── Product name — sticker crossing image/card boundary ─────────────────── */
+
+.pop-card__name {
+  position: relative;
+  z-index: 4;
+  align-self: flex-start;
+  /* Colored sticker bg — guarantees legibility over any image */
+  background: var(--pop-accent);
+  color: var(--pop-accent-dark);
+  padding: 5px 14px 7px;
+  font-family: 'Titan One', sans-serif;
+  font-size: clamp(22px, 9cqi, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-left: 10px;
+  margin-bottom: -10px; /* dips into clip-body */
+  transform: rotate(var(--name-rotate)) translateY(0);
+  transform-origin: 0 100%;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pop-slot:hover .pop-card__name,
+.pop-slot:focus-within .pop-card__name {
+  /* sticker peels upward and tilts further */
+  transform: rotate(calc(var(--name-rotate) - 2deg)) translateY(-6px);
+}
+
+/* ── Clipped card body ──────────────────────────────────────────────────── */
+
+.pop-card__clip {
+  position: relative;
+  z-index: 2;
+  background: oklch(99.5% 0.005 145);
+  padding-top: 30px;
+  transition: filter 0.35s ease;
+}
+
+/* drop-shadow follows clip-path shape */
+.pop-slot:hover .pop-card__clip,
+.pop-slot:focus-within .pop-card__clip {
+  filter: drop-shadow(0 12px 28px oklch(0% 0 0 / 0.14));
+}
+
+/* Wild irregular polygons — deliberately different per variant */
+.pop--neon .pop-card__clip {
+  clip-path: polygon(0 0, 95% 0, 100% 7%, 100% 91%, 86% 100%, 2% 98%);
+}
+.pop--tee .pop-card__clip {
+  clip-path: polygon(7% 0, 100% 2%, 94% 100%, 0 96%, 0 5%);
+}
+.pop--figure .pop-card__clip {
+  clip-path: polygon(0 4%, 89% 0, 100% 6%, 96% 100%, 5% 97%);
+}
+
+/* ── Accent band ────────────────────────────────────────────────────────── */
+
+.pop-card__band {
+  background: var(--pop-accent);
+  padding: 7px 18px;
+}
+
+.pop-card__category {
+  font-family: 'Titan One', sans-serif;
+  font-size: 22px; /* large text — 3:1 req., passes AA on all accent BGs */
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--pop-accent-dark);
+}
+
+/* ── Body ───────────────────────────────────────────────────────────────── */
+
+.pop-card__body {
+  padding: 16px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  background: oklch(99.5% 0.005 145);
+  transition: background 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pop--neon:hover .pop-card__body,
+.pop--neon:focus-within .pop-card__body {
+  background: var(--pop-body-hover);
+}
+.pop--tee:hover .pop-card__body,
+.pop--tee:focus-within .pop-card__body {
+  background: var(--pop-body-hover);
+}
+.pop--figure:hover .pop-card__body,
+.pop--figure:focus-within .pop-card__body {
+  background: var(--pop-body-hover);
+}
+
+.pop-card__desc {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: oklch(36% 0.018 140);
+  margin: 0 0 18px;
+  max-width: 42ch;
+}
+
+/* Footer */
+.pop-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.pop-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  line-height: 1;
+  color: oklch(11% 0.015 140);
+}
+
+.pop-card__price-currency {
+  font-family: 'Titan One', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.pop-card__price-amount {
+  font-family: 'Titan One', sans-serif;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* CTA */
+.pop-card__cta {
+  background: oklch(11% 0.015 140);
+  color: oklch(97% 0.022 140);
+  border: none;
+  border-radius: 0;
+  padding: 0 18px;
+  min-height: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Titan One', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  transition: background 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+}
+
+.pop-slot:hover .pop-card__cta,
+.pop-slot:focus-within .pop-card__cta {
+  background: var(--pop-accent);
+  color: var(--pop-accent-dark);
+}
+
+/* Active: quick press flash */
+.pop-card__cta:active {
+  filter: brightness(0.88);
+}
+
+/* Inset focus-visible — light ring visible on dark button, accent ring when card is hovered */
+.pop-card__cta:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2.5px oklch(97% 0.022 140);
+}
+
+.pop-slot:hover .pop-card__cta:focus-visible,
+.pop-slot:focus-within .pop-card__cta:focus-visible {
+  box-shadow: inset 0 0 0 2.5px var(--pop-accent-dark);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .pop-grid {
+    grid-template-columns: 1fr 1fr;
+    padding: 8px 0 48px;
+  }
+
+  /* Reduce collage drama at smaller sizes — keep the tilt, lose the overlap */
+  .pop-grid > div:nth-child(1) {
+    transform: rotate(-1.5deg);
+    margin-top: 12px;
+  }
+  .pop-grid > div:nth-child(2) {
+    transform: rotate(1.5deg);
+    margin-top: 0;
+  }
+  .pop-grid > div:nth-child(3) {
+    transform: rotate(-1deg);
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .pop-grid {
+    grid-template-columns: 1fr;
+    padding: 0 0 32px;
+  }
+
+  .pop-grid > div:nth-child(1),
+  .pop-grid > div:nth-child(2),
+  .pop-grid > div:nth-child(3) {
+    transform: none;
+    margin-top: 0;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .pop-slot {
+    animation: none;
+  }
+
+  .pop-slot__image,
+  .pop-slot__splash,
+  .pop-slot__badge,
+  .pop-slot__image-wrap,
+  .pop-card__name,
+  .pop-card__clip,
+  .pop-card__body,
+  .pop-card__cta {
+    transition: none;
+  }
+
+  .pop-slot:hover .pop-slot__image,
+  .pop-slot:focus-within .pop-slot__image {
+    transform: none;
+  }
+
+  .pop-slot.pop--neon:hover .pop-slot__image-wrap,
+  .pop-slot.pop--neon:focus-within .pop-slot__image-wrap,
+  .pop-slot.pop--tee:hover .pop-slot__image-wrap,
+  .pop-slot.pop--tee:focus-within .pop-slot__image-wrap,
+  .pop-slot.pop--figure:hover .pop-slot__image-wrap,
+  .pop-slot.pop--figure:focus-within .pop-slot__image-wrap {
+    transform: revert;
+  }
+
+  .pop-slot:hover .pop-slot__splash,
+  .pop-slot:focus-within .pop-slot__splash {
+    opacity: 0;
+  }
+
+  .pop-slot:hover .pop-slot__badge,
+  .pop-slot:focus-within .pop-slot__badge {
+    transform: rotate(14deg);
+  }
+
+  .pop-slot:hover .pop-card__name,
+  .pop-slot:focus-within .pop-card__name {
+    transform: rotate(var(--name-rotate)) translateY(0);
+  }
+}

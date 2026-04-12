@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloock:ital@0;1&family=Albert+Sans:ital,wght@0,300;0,400;1,300&display=swap');
+
+/* ── Silent Luxury — Product Showcase ──────────────────────────────────── */
+
+.pc-showcase {
+  padding: clamp(64px, 10vw, 112px) 0;
+  background: oklch(97.5% 0.008 72);
+  text-align: left;
+}
+
+.pc-showcase__header {
+  margin: 0 auto clamp(40px, 6vw, 64px);
+  max-width: 920px;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+.pc-showcase__eyebrow {
+  display: block;
+  font-family: 'Albert Sans', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: oklch(42% 0.028 72); /* was 60% — darkened to 4.5:1 on showcase bg */
+  margin: 0 0 14px;
+}
+
+.pc-showcase__title {
+  font-family: 'Gloock', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: clamp(38px, 5.5vw, 54px);
+  font-weight: 400;
+  color: oklch(22% 0.013 60);
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  margin: 0;
+}
+
+.pc-showcase__subtitle {
+  margin: 12px 0 0;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 300;
+  font-style: italic;
+  color: oklch(43% 0.016 68); /* was 52% — darkened to 4.5:1 on showcase bg */
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+}
+
+/* ── Grid ──────────────────────────────────────────────────────────────── */
+
+.pc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+  gap: 2px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+/* ── Card ──────────────────────────────────────────────────────────────── */
+
+.pc {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: oklch(96% 0.010 72);
+  container-type: inline-size;
+}
+
+/* Image area */
+.pc__image-wrap {
+  aspect-ratio: 3 / 4;
+  position: relative;
+  overflow: hidden;
+}
+
+.pc__image-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Fallback bg while loading */
+  background: oklch(88% 0.018 70);
+}
+
+.pc:hover .pc__image-bg,
+.pc:focus-within .pc__image-bg {
+  transform: scale(1.045);
+}
+
+/* Badge */
+.pc__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 8.5px;
+  font-weight: 400;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: oklch(97% 0.006 72);
+  background: oklch(32% 0.018 58 / 0.68);
+  padding: 4px 9px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Tailor's mark — the signature interaction */
+.pc__tailor-mark {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: oklch(72% 0.058 76);
+  transform: scaleX(0); /* GPU-composited — no layout reflow */
+  transform-origin: left center;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.pc:hover .pc__tailor-mark,
+.pc:focus-within .pc__tailor-mark {
+  transform: scaleX(1);
+}
+
+/* Card number */
+.pc__number {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: oklch(97% 0.006 72 / 0.55);
+}
+
+/* ── Body ──────────────────────────────────────────────────────────────── */
+
+.pc__body {
+  padding: 18px 22px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pc__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 8px;
+}
+
+.pc__category {
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 11px; /* was 9px — below legibility threshold */
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: oklch(43% 0.022 70); /* was 57% — darkened to 4.5:1 on card bg */
+}
+
+.pc__price {
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: oklch(35% 0.018 65);
+  letter-spacing: 0.03em;
+  font-variant-numeric: oldstyle-nums;
+}
+
+.pc__name {
+  font-family: 'Gloock', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 400;
+  color: oklch(22% 0.013 60);
+  letter-spacing: -0.012em;
+  line-height: 1.18;
+  margin: 0 0 6px;
+}
+
+.pc__material {
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 300;
+  font-style: italic;
+  color: oklch(44% 0.016 68); /* was 54% — darkened to 4.5:1 on card bg */
+  margin: 0 0 22px;
+  letter-spacing: 0.015em;
+  line-height: 1.5;
+}
+
+/* CTA */
+.pc__cta {
+  background: none;
+  border: none;
+  /* Padding creates 44px touch target height without visual change to layout */
+  padding: 14px 0;
+  margin-top: -14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 11px; /* was 9.5px — below legibility threshold */
+  font-weight: 400;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: oklch(44% 0.032 72); /* was 57% — darkened to 4.5:1 on card bg */
+  transition: color 0.3s ease;
+  align-self: flex-start;
+}
+
+.pc__cta:hover,
+.pc:hover .pc__cta,
+.pc:focus-within .pc__cta {
+  color: oklch(32% 0.040 70);
+}
+
+.pc__cta:focus-visible {
+  outline: 1.5px solid oklch(44% 0.032 72);
+  outline-offset: 5px;
+}
+
+.pc__cta svg {
+  width: 32px;
+  height: 7px;
+  flex-shrink: 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc:hover .pc__cta svg,
+.pc:focus-within .pc__cta svg,
+.pc__cta:hover svg {
+  transform: translateX(5px);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .pc-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .pc__body {
+    padding: 14px 16px 20px;
+  }
+
+  .pc__name {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 420px) {
+  .pc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc__image-bg,
+  .pc__tailor-mark,
+  .pc__cta svg {
+    transition: none;
+  }
+
+  .pc:hover .pc__image-bg,
+  .pc:focus-within .pc__image-bg {
+    transform: none;
+  }
+}

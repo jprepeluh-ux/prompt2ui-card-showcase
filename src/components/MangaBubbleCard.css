@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Nunito:wght@400;700;900&display=swap');
+
+/* ── Harajuku Bubble Crew ────────────────────────────────────────────────── */
+
+.bubble-showcase {
+  background: oklch(10% 0.015 280);
+  padding: 0 0 clamp(80px, 10vw, 112px);
+  overflow: hidden;
+}
+
+/* ── Marquee header ──────────────────────────────────────────────────────── */
+
+.bubble-showcase__header {
+  position: relative;
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.bubble-marquee {
+  background: #FFD700;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  padding: 14px 0;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.bubble-marquee__track {
+  display: flex;
+  gap: 40px;
+  white-space: nowrap;
+  width: max-content;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  color: #000;
+  animation: marqueeScroll 14s linear infinite;
+}
+
+.bubble-marquee__track span {
+  flex-shrink: 0;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.bubble-showcase__title {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: clamp(52px, 10vw, 100px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  margin: clamp(32px, 5vw, 56px) auto 0;
+  letter-spacing: -0.02em;
+  /* Outline stroked text effect */
+  -webkit-text-stroke: 2px #FFD700;
+  paint-order: stroke fill;
+}
+
+/* ── Grid ──────────────────────────────────────────────────────────────── */
+
+.bubble-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 72px);
+}
+
+/* ── Card reveal ─────────────────────────────────────────────────────────── */
+
+@keyframes bubblePop {
+  0%   { opacity: 0; transform: scale(0.85) rotate(var(--card-tilt, 0deg)); }
+  70%  { opacity: 1; transform: scale(1.04) rotate(var(--card-tilt, 0deg)); }
+  100% { opacity: 1; transform: scale(1) rotate(var(--card-tilt, 0deg)); }
+}
+
+/* ── Variant colors ──────────────────────────────────────────────────────── */
+
+.bubble--sakura  {
+  --card-bg: #FFB7C5;
+  --card-tilt: -2deg;
+  --cta-bg: #ff3f6c;
+  --cta-fg: #fff;
+}
+.bubble--kurogama {
+  --card-bg: #98FB98;
+  --card-tilt: 1.5deg;
+  --cta-bg: #1a1a1a;
+  --cta-fg: #98FB98;
+}
+.bubble--mango {
+  --card-bg: #FFD700;
+  --card-tilt: -1deg;
+  --cta-bg: #ff6900;
+  --cta-fg: #fff;
+}
+
+/* ── Card ──────────────────────────────────────────────────────────────── */
+
+.bubble-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 3px solid #000;
+  box-shadow: 10px 10px 0px #000;
+  clip-path: polygon(2% 2%, 98% 0%, 100% 98%, 0% 100%);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transform: rotate(var(--card-tilt, 0deg));
+  animation: bubblePop 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition:
+    box-shadow 0.25s ease,
+    translate 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Halftone dot overlay */
+  background-image:
+    radial-gradient(circle, rgba(0,0,0,0.05) 2px, transparent 2px),
+    linear-gradient(var(--card-bg), var(--card-bg));
+  background-size: 16px 16px, 100% 100%;
+}
+
+.bubble-card:hover,
+.bubble-card:focus-within {
+  translate: -4px -4px;
+  box-shadow: 14px 14px 0px #000;
+}
+
+/* ── Badge ───────────────────────────────────────────────────────────────── */
+
+.bubble-card__badge {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  background: #000;
+  color: var(--card-bg);
+  padding: 4px 10px;
+  z-index: 2;
+  transform: rotate(-2deg);
+}
+
+/* ── Image placeholder ───────────────────────────────────────────────────── */
+
+.bubble-card__image-wrap {
+  aspect-ratio: 1 / 1;
+  background: rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.bubble-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bubble-card:hover .bubble-card__image,
+.bubble-card:focus-within .bubble-card__image {
+  transform: scale(1.06) rotate(-4deg);
+}
+
+/* Placeholder fallback */
+.bubble-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.bubble-card__placeholder::after {
+  content: '🧋';
+  font-size: clamp(48px, 12cqi, 72px);
+  opacity: 0.5;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.bubble-card:hover .bubble-card__placeholder::after,
+.bubble-card:focus-within .bubble-card__placeholder::after {
+  transform: scale(1.15) rotate(-8deg);
+  opacity: 0.7;
+}
+
+/* ── Body ──────────────────────────────────────────────────────────────── */
+
+.bubble-card__body {
+  padding: 16px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  text-align: center;
+}
+
+/* Skewed title box */
+.bubble-card__title {
+  margin: 0 0 12px;
+  display: block;
+  width: 100%;
+}
+
+.bubble-card__title-inner {
+  display: block;
+  background: #000;
+  color: #fff;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  text-align: center;
+  transform: rotate(-3deg);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1.2;
+}
+
+.bubble--sakura {
+  align-self: start;
+}
+
+.bubble--sakura .bubble-card__cta {
+  margin-top: 16px;
+}
+
+.bubble--mango .bubble-card__title {
+  margin-bottom: 24px;
+}
+
+.bubble--mango .bubble-card__title-inner {
+  transform: rotate(2deg);
+}
+
+.bubble-card:hover .bubble-card__title-inner,
+.bubble-card:focus-within .bubble-card__title-inner {
+  transform: rotate(-6deg) scale(1.04);
+}
+
+.bubble--mango:hover .bubble-card__title-inner,
+.bubble--mango:focus-within .bubble-card__title-inner {
+  transform: rotate(-6deg) scale(1.04);
+}
+
+.bubble-card__desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: oklch(12% 0.01 0);
+  margin: 0 0 20px;
+  max-width: 32ch;
+}
+
+/* ── CTA ─────────────────────────────────────────────────────────────────── */
+
+.bubble-card__cta {
+  background: var(--cta-bg);
+  color: var(--cta-fg);
+  border: 2.5px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  padding: 0 18px;
+  min-height: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: auto;
+  transition:
+    box-shadow 0.2s ease,
+    translate 0.2s ease;
+}
+
+.bubble-card__cta:hover {
+  translate: -2px -2px;
+  box-shadow: 6px 6px 0 #000;
+}
+
+.bubble-card__cta:active {
+  translate: 1px 1px;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.bubble-card__cta:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: 3px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .bubble-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bubble-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .bubble-card {
+    transform: none;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble-card {
+    animation: none;
+    transition: none;
+  }
+
+  .bubble-marquee {
+    animation: none;
+  }
+
+  .bubble-card:hover,
+  .bubble-card:focus-within {
+    translate: none;
+  }
+}
