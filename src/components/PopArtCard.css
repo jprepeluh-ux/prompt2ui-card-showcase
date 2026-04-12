@@ -439,7 +439,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .pop-grid {
     grid-template-columns: 1fr;
     padding: 0 0 32px;

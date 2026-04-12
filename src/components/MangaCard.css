@@ -306,7 +306,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .manga-grid {
     grid-template-columns: 1fr;
   }
