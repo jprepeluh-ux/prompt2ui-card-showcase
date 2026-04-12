@@ -300,10 +300,10 @@
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .manga-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 24px;
   }
 }
 
