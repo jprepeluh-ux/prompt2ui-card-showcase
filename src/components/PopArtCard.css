@@ -6,6 +6,7 @@
   padding: clamp(56px, 8vw, 96px) 0 clamp(80px, 10vw, 120px);
   background: oklch(97% 0.022 140);
   text-align: left;
+  overflow-x: hidden;
   overflow: visible;
 }
 

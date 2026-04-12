@@ -6,6 +6,7 @@
   padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 8vw, 96px);
   background: oklch(13% 0.018 32);
   text-align: left;
+  overflow-x: hidden;
 }
 
 .hh-showcase__header {

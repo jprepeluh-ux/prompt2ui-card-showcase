@@ -260,10 +260,11 @@
 @media (max-width: 480px) {
   .pc-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .pc__name {
-    font-size: 20px;
+    font-size: 24px;
   }
 }
 

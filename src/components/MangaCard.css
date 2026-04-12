@@ -8,6 +8,7 @@
   background-image: radial-gradient(oklch(22% 0.022 280) 1px, transparent 1px);
   background-size: 20px 20px;
   text-align: left;
+  overflow-x: hidden;
 }
 
 .manga-showcase__header {
