@@ -30,7 +30,7 @@ function App() {
           const el = entry.target as HTMLElement
           const siblings = Array.from(el.parentElement?.children ?? [])
           const idx = siblings.indexOf(el)
-          el.style.transitionDelay = `${idx * 0.08}s`
+          el.style.animationDelay = `${idx * 0.08}s`
           el.classList.add('is-visible')
           observer.unobserve(el)
         })
