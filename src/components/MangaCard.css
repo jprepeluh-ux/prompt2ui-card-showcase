@@ -310,6 +310,15 @@
 @media (max-width: 480px) {
   .manga-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .manga-card__name {
+    font-size: 24px;
+  }
+
+  .manga-card__desc {
+    font-size: 16px;
   }
 }
 

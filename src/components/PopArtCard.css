@@ -443,7 +443,9 @@
 @media (max-width: 480px) {
   .pop-grid {
     grid-template-columns: 1fr;
-    padding: 0 0 32px;
+    padding: 0 clamp(24px, 6vw, 72px) 32px;
+    gap: 24px;
+    overflow: hidden;
   }
 
   .pop-grid > div:nth-child(1),

@@ -257,6 +257,7 @@
 @media (max-width: 480px) {
   .hh-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 
