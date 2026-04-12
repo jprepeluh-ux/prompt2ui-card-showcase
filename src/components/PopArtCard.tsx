@@ -43,13 +43,13 @@ export function PopArtCard({
 
         {/* Neon burst expanding from center on hover */}
         <div className="pop-slot__splash" aria-hidden="true" />
-
-        {badge && (
-          <span className="pop-slot__badge" aria-hidden="true">
-            {badge}
-          </span>
-        )}
       </div>
+
+      {badge && (
+        <span className="pop-slot__badge" aria-hidden="true">
+          {badge}
+        </span>
+      )}
 
       {/* Name sticker — crosses image/card boundary */}
       <h3 className="pop-card__name">{name}</h3>
