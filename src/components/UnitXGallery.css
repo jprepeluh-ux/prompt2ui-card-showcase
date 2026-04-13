@@ -1,0 +1,311 @@
+/* ── Design tokens ────────────────────────────────────────── */
+.ux2-showcase {
+  --bg:             oklch(7% 0.008 30);
+  --surface:        oklch(9.5% 0.007 30);
+  --surface-hover:  oklch(11.5% 0.007 30);
+  --border:         oklch(18% 0.006 30);
+  --border-faint:   oklch(14% 0.005 30);
+  --text-primary:   oklch(91% 0.008 65);
+  --text-secondary: oklch(52% 0.007 60);
+  --text-tertiary:  oklch(30% 0.005 55);
+  --lot-mark:       oklch(12.5% 0.006 30);
+
+  background: var(--bg);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem);
+}
+
+/* ── Section header ───────────────────────────────────────── */
+.ux2-header {
+  max-width: 1280px;
+  margin: 0 auto clamp(3rem, 5vw, 5rem);
+}
+
+.ux2-header__classification {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  margin: 0 0 1.25rem;
+}
+
+.ux2-header__title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 3rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+.ux2-header__title {
+  font-family: 'Big Shoulders Display', system-ui, sans-serif;
+  font-size: clamp(5rem, 14vw, 11rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.ux2-header__sub {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.72rem;
+  line-height: 1.9;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin: 0 0 0.8rem;
+}
+
+/* ── Catalog ──────────────────────────────────────────────── */
+.ux2-catalog {
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ── Entry ────────────────────────────────────────────────── */
+.ux2-entry {
+  display: grid;
+  grid-template-columns: clamp(180px, 28%, 380px) 1fr;
+  position: relative;
+  background: var(--surface);
+  border-top: 1px solid var(--border-faint);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.35s ease;
+}
+
+.ux2-entry:last-child {
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.ux2-entry:hover {
+  background: var(--surface-hover);
+}
+
+/* Scroll-reveal */
+.ux2-entry[data-reveal] {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+.ux2-entry[data-reveal].is-visible {
+  animation: ux2-slide-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes ux2-slide-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── LOT watermark ────────────────────────────────────────── */
+.ux2-entry__lot-bg {
+  position: absolute;
+  right: 2%;
+  bottom: -0.08em;
+  font-family: 'Big Shoulders Display', system-ui, sans-serif;
+  font-size: clamp(8rem, 22vw, 19rem);
+  font-weight: 900;
+  color: var(--lot-mark);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  transition: color 0.35s ease;
+}
+
+.ux2-entry:hover .ux2-entry__lot-bg {
+  color: color-mix(in oklch, var(--accent) 7%, var(--lot-mark));
+}
+
+/* ── Image column ─────────────────────────────────────────── */
+.ux2-entry__image-col {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: oklch(5.5% 0.005 30);
+}
+
+.ux2-entry__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ux2-entry:hover .ux2-entry__image {
+  transform: scale(1.05);
+}
+
+/* ── Content column ───────────────────────────────────────── */
+.ux2-entry__content {
+  position: relative;
+  z-index: 1;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(340px, 38vw, 480px);
+}
+
+/* ── Meta row ─────────────────────────────────────────────── */
+.ux2-entry__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.ux2-entry__unit-id {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ux2-entry__lot-tag {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ── Name ─────────────────────────────────────────────────── */
+.ux2-entry__name {
+  font-family: 'Big Shoulders Display', system-ui, sans-serif;
+  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.ux2-entry__name-line {
+  display: block;
+}
+
+/* ── Tagline ──────────────────────────────────────────────── */
+.ux2-entry__tagline {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.72rem;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  margin: 0 0 auto;
+  max-width: 42ch;
+}
+
+/* ── Spec plate ───────────────────────────────────────────── */
+.ux2-entry__spec-plate {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: flex-start;
+  gap: 0 2.5rem;
+  margin: 2rem 0 1.75rem;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--border-faint);
+}
+
+.ux2-entry__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ux2-entry__spec dt {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.ux2-entry__spec dd {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ── CTA ──────────────────────────────────────────────────── */
+.ux2-entry__cta {
+  align-self: flex-start;
+  padding: 0.875rem 2.5rem;
+  background: transparent;
+  border: 1px solid oklch(28% 0.006 30);
+  border-radius: 0;
+  color: oklch(55% 0.007 60);
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.ux2-entry__cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: oklch(7% 0.008 30);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .ux2-entry {
+    grid-template-columns: 1fr;
+  }
+
+  .ux2-entry__image-col {
+    height: clamp(260px, 60vw, 400px);
+  }
+
+  .ux2-entry__lot-bg {
+    font-size: clamp(5rem, 28vw, 9rem);
+    right: 3%;
+    bottom: auto;
+    top: calc(clamp(260px, 60vw, 400px) - 1.5em);
+  }
+
+  .ux2-header__title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ux2-showcase {
+    padding: 3rem 1.25rem;
+  }
+
+  .ux2-entry__spec-plate {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+  }
+
+  .ux2-entry__spec:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .ux2-entry__cta {
+    width: 100%;
+    text-align: center;
+    align-self: stretch;
+  }
+}

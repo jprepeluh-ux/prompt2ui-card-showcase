@@ -1,0 +1,282 @@
+/* ─── Section ─────────────────────────────────────────────── */
+.unitx-showcase {
+  background: #000;
+  padding: 4rem 2rem;
+}
+
+.unitx-showcase__header {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+}
+
+.unitx-showcase__eyebrow {
+  font-family: 'Share', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: #555;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+.unitx-showcase__title {
+  font-family: 'Big Shoulders Display', system-ui, sans-serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+
+.unitx-showcase__sub {
+  font-family: 'Share', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: #444;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ─── Grid ────────────────────────────────────────────────── */
+.unitx-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─── Card — invertible variables ────────────────────────── */
+.unitx-card {
+  --c-surface:    #050505;
+  --c-text-1:     oklch(91% 0.008 65);
+  --c-text-2:     oklch(52% 0.007 60);
+  --c-text-3:     oklch(28% 0.005 55);
+  --c-border:     oklch(14% 0.005 30);
+  --c-cta-border: oklch(28% 0.006 30);
+  --c-cta-color:  oklch(55% 0.007 60);
+
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #222;
+  border-radius: 0;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.unitx-card:hover {
+  --c-surface:    #FFFEFC;
+  --c-text-1:     oklch(10% 0.008 30);
+  --c-text-2:     oklch(22% 0.006 30);
+  --c-text-3:     oklch(42% 0.005 30);
+  --c-border:     oklch(80% 0.004 55);
+  --c-cta-border: oklch(18% 0.008 30);
+  --c-cta-color:  oklch(14% 0.008 30);
+
+  border-color: #333;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Scroll-reveal */
+.unitx-card[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.unitx-card[data-reveal].is-visible {
+  animation: unitx-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes unitx-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Image (left 50%) ────────────────────────────────────── */
+.unitx-card__image-wrap {
+  flex: 0 0 50%;
+  overflow: hidden;
+  background: #080808;
+}
+
+.unitx-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.unitx-card:hover .unitx-card__image {
+  transform: scale(1.03);
+}
+
+/* ─── Body — inverts on hover ─────────────────────────────── */
+.unitx-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  background: var(--c-surface);
+  transition: background 0.25s ease;
+}
+
+/* ─── Accent bar — right edge ─────────────────────────────── */
+.unitx-card__accent-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--accent);
+  z-index: 1;
+  transition: width 0.25s ease;
+}
+
+.unitx-card:hover .unitx-card__accent-bar {
+  width: 5px;
+}
+
+/* ─── Label ───────────────────────────────────────────────── */
+.unitx-card__label {
+  font-family: 'Share', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+/* ─── Title ───────────────────────────────────────────────── */
+.unitx-card__title {
+  font-family: 'Big Shoulders Display', system-ui, sans-serif;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--c-text-1);
+  margin: 0 0 0.4rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  transition: color 0.25s ease;
+}
+
+/* ─── Subtitle ────────────────────────────────────────────── */
+.unitx-card__subtitle {
+  font-family: 'Share', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--c-text-2);
+  text-transform: uppercase;
+  margin: 0 0 1.25rem;
+  transition: color 0.25s ease;
+}
+
+/* ─── Specs ───────────────────────────────────────────────── */
+.unitx-card__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--c-border);
+  transition: border-color 0.25s ease;
+}
+
+.unitx-card__spec-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.unitx-card__spec-row dt {
+  font-family: 'Share', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+
+.unitx-card__spec-row dd {
+  font-family: 'Share', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--c-text-2);
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 0.05em;
+  transition: color 0.25s ease;
+}
+
+/* ─── CTA ─────────────────────────────────────────────────── */
+.unitx-card__cta {
+  margin-top: auto;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--c-cta-border);
+  border-radius: 0;
+  color: var(--c-cta-color);
+  font-family: 'Share', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.unitx-card__cta:hover {
+  background: var(--c-text-1);
+  border-color: var(--c-text-1);
+  color: var(--c-surface);
+}
+
+/* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .unitx-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .unitx-card__title {
+    font-size: clamp(1.4rem, 4.5vw, 2rem);
+  }
+}
+
+@media (max-width: 540px) {
+  .unitx-showcase {
+    padding: 3rem 1rem;
+  }
+
+  .unitx-card {
+    flex-direction: column;
+  }
+
+  .unitx-card__image-wrap {
+    flex: none;
+    height: 260px;
+  }
+
+  .unitx-card__title {
+    font-size: clamp(1.9rem, 8vw, 2.8rem);
+  }
+
+  .unitx-card__accent-bar {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 5px;
+  }
+}

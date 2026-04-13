@@ -7,6 +7,8 @@ import { MangaShowcase } from './components/MangaCard'
 import { GlassShowcase } from './components/GlassCard'
 import { MangaBubbleShowcase } from './components/MangaBubbleCard'
 import { KFoodShowcase } from './components/KFoodCard'
+import { UnitXShowcase } from './components/UnitXCards'
+import { UnitXGalleryShowcase } from './components/UnitXGallery'
 
 function App() {
   useEffect(() => {
@@ -18,6 +20,8 @@ function App() {
       '.glass-card',
       '.bubble-card',
       '.kfood-card',
+      '.unitx-card',
+      '.ux2-entry',
     ].join(', ')
 
     const cards = document.querySelectorAll(CARD_SELECTORS)
@@ -51,6 +55,8 @@ function App() {
       <GlassShowcase />
       <MangaBubbleShowcase />
       <KFoodShowcase />
+      <UnitXShowcase />
+      <UnitXGalleryShowcase />
     </>
   )
 }
