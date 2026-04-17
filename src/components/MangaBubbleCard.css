@@ -379,24 +379,42 @@
 
 /* ── Entry animations ────────────────────────────────────────────────────── */
 
+/* Title: starts tilted + pushed down, slides up on activation */
+.bubble-swiper-slide .bubble-card__title-inner {
+  transform: rotate(-3deg) translateY(16px);
+  opacity: 0.35;
+  transition:
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0s,
+    opacity   0.5s ease                           0s;
+}
+
+.bubble-swiper-slide .bubble--mango .bubble-card__title-inner {
+  transform: rotate(2deg) translateY(16px);
+}
+
+.bubble-swiper-slide.is-active .bubble-card__title-inner {
+  transform: rotate(-3deg) translateY(0);
+  opacity: 1;
+}
+
+.bubble-swiper-slide.is-active .bubble--mango .bubble-card__title-inner {
+  transform: rotate(2deg) translateY(0);
+}
+
+/* Image: slides up slightly after title (0.1s stagger) */
 .bubble-swiper-slide .bubble-card__image {
-  transform: translateY(16px);
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(22px);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
 }
 
 .bubble-swiper-slide.is-active .bubble-card__image {
   transform: translateY(0);
 }
 
-.bubble-swiper-slide .bubble-card__title-inner {
-  opacity: 0.5;
-  transition:
-    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
-    opacity 0.45s ease 0.08s;
-}
-
-.bubble-swiper-slide.is-active .bubble-card__title-inner {
-  opacity: 1;
+/* Keep hover image effect working inside swiper */
+.bubble-swiper-slide .bubble-card:hover .bubble-card__image,
+.bubble-swiper-slide .bubble-card:focus-within .bubble-card__image {
+  transform: translateY(0) scale(1.06) rotate(-4deg);
 }
 
 /* ── Dot indicator — neo-brutalist squares ───────────────────────────────── */
@@ -405,8 +423,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-top: 24px;
+  gap: 12px;
+  margin-top: 28px;
   padding: 0 clamp(24px, 6vw, 72px);
 }
 
@@ -414,21 +432,22 @@
   width: 12px;
   height: 12px;
   border-radius: 0;
-  border: 2.5px solid #000;
+  /* yellow border — always visible on the dark section background */
+  border: 2.5px solid #FFD700;
   background: transparent;
-  box-shadow: 2px 2px 0 #000;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.6);
   padding: 0;
   cursor: pointer;
   transition:
-    background 0.2s ease,
-    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.2s ease;
+    background  0.25s ease,
+    transform   0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow  0.25s ease;
 }
 
 .bubble-swiper-dot.is-active {
   background: #FFD700;
-  transform: rotate(-8deg) scale(1.3);
-  box-shadow: 3px 3px 0 #000;
+  transform: rotate(-8deg) scale(1.4);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.7);
 }
 
 @media (max-width: 768px) {

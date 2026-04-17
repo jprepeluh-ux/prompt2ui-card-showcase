@@ -106,7 +106,7 @@ function BubbleSwiper() {
           }
         })
       },
-      { root: track, threshold: 0.55 }
+      { root: track, threshold: 0.28 }
     )
 
     slides.forEach(slide => observer.observe(slide))
