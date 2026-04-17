@@ -121,26 +121,41 @@ const mangaDrops: MangaCardProps[] = [
 
 function MangaSwiper() {
   const trackRef = useRef<HTMLDivElement>(null)
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
     const track = trackRef.current
-    if (!track) return
+    const slides = slideRefs.current.filter(Boolean) as HTMLDivElement[]
+    if (!track || slides.length === 0) return
 
-    const handleScroll = () => {
-      const { scrollLeft, clientWidth } = track
-      const idx = Math.round(scrollLeft / clientWidth)
-      setActiveIndex(idx)
-    }
+    // Activate first slide immediately
+    slides[0].classList.add('is-active')
 
-    track.addEventListener('scroll', handleScroll, { passive: true })
-    return () => track.removeEventListener('scroll', handleScroll)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const idx = slides.indexOf(entry.target as HTMLDivElement)
+          if (idx === -1) return
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active')
+            setActiveIndex(idx)
+          } else {
+            entry.target.classList.remove('is-active')
+          }
+        })
+      },
+      { root: track, threshold: 0.55 }
+    )
+
+    slides.forEach(slide => observer.observe(slide))
+    return () => observer.disconnect()
   }, [])
 
   const goTo = (idx: number) => {
-    const track = trackRef.current
-    if (!track) return
-    track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' })
+    const slides = slideRefs.current.filter(Boolean) as HTMLDivElement[]
+    if (!slides[idx]) return
+    slides[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
   }
 
   return (
@@ -150,8 +165,13 @@ function MangaSwiper() {
       </div>
 
       <div className="manga-swiper-track" ref={trackRef} role="list">
-        {mangaDrops.map((drop) => (
-          <div key={`swipe-${drop.name}`} className="manga-swiper-slide" role="listitem">
+        {mangaDrops.map((drop, i) => (
+          <div
+            key={`swipe-${drop.name}`}
+            className="manga-swiper-slide"
+            ref={el => { slideRefs.current[i] = el }}
+            role="listitem"
+          >
             <MangaCard {...drop} />
           </div>
         ))}

@@ -364,10 +364,74 @@
   flex: 0 0 calc(100vw - clamp(48px, 12vw, 144px));
   scroll-snap-align: start;
   padding-right: 16px;
+  /* top padding prevents badge from being clipped by hover-lift */
+  padding-top: 14px;
 }
 
 .manga-swiper-slide:last-child {
   padding-right: 0;
+}
+
+/* ── Disable hover-lift inside swiper (prevents badge clipping) ── */
+.manga-swiper-slide .manga-card:hover,
+.manga-swiper-slide .manga-card:focus-within {
+  translate: none;
+  scale: 1;
+  rotate: 0deg;
+  box-shadow: 8px 8px 0 oklch(0% 0 0);
+}
+
+/* ── Swiper entry animations ─────────────────────────────────────── */
+
+/* Image: starts shifted down, transitions up when active */
+.manga-swiper-slide .manga-card__image {
+  transform: translateY(18px);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.manga-swiper-slide.is-active .manga-card__image {
+  transform: translateY(0);
+}
+
+/* Name: starts straight, tilts in when active */
+.manga-swiper-slide .manga-card__name {
+  transform: rotate(0deg);
+  opacity: 0.55;
+  transition:
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+    opacity 0.45s ease 0.08s;
+}
+
+.manga-swiper-slide.is-active .manga-card__name {
+  transform: rotate(-3deg);
+  opacity: 1;
+}
+
+/* Price: starts straight, tilts in when active, slight delay after name */
+.manga-swiper-slide .manga-card__price {
+  transform: rotate(0deg);
+  opacity: 0.55;
+  transition:
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.16s,
+    opacity 0.45s ease 0.16s;
+}
+
+.manga-swiper-slide.is-active .manga-card__price {
+  transform: rotate(-3deg);
+  opacity: 1;
+}
+
+/* Override base hover-tilt inside swiper (entry animation handles it) */
+.manga-swiper-slide .manga-card:hover .manga-card__name,
+.manga-swiper-slide .manga-card:focus-within .manga-card__name,
+.manga-swiper-slide .manga-card:hover .manga-card__price,
+.manga-swiper-slide .manga-card:focus-within .manga-card__price {
+  transform: rotate(-3deg);
+}
+
+.manga-swiper-slide .manga-card:hover .manga-card__image,
+.manga-swiper-slide .manga-card:focus-within .manga-card__image {
+  transform: translateY(0) scale(1.05);
 }
 
 .manga-swiper-dots {
