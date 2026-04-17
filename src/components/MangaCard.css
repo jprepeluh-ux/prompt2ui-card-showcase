@@ -135,8 +135,6 @@
   object-position: center;
   display: block;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-  transform: translateZ(0);
 }
 
 .manga-card:hover .manga-card__image,
@@ -385,14 +383,15 @@
 
 /* ── Swiper entry animations ─────────────────────────────────────── */
 
-/* Image: starts shifted down, transitions up when active */
+/* Image: GPU-promoted only here where animation is needed */
 .manga-swiper-slide .manga-card__image {
-  transform: translateY(18px);
+  will-change: transform;
+  transform: translateZ(0) translateY(18px);
   transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .manga-swiper-slide.is-active .manga-card__image {
-  transform: translateY(0);
+  transform: translateZ(0) translateY(0);
 }
 
 /* Name: starts straight, tilts in when active */
