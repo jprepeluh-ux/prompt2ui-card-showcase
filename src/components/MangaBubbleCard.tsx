@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from 'react'
 import './MangaBubbleCard.css'
 
 interface BubbleCardProps {
@@ -80,6 +81,79 @@ const bubbleDrops: BubbleCardProps[] = [
   },
 ]
 
+function BubbleSwiper() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const track = trackRef.current
+    const slides = slideRefs.current.filter(Boolean) as HTMLDivElement[]
+    if (!track || slides.length === 0) return
+
+    slides[0].classList.add('is-active')
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const idx = slides.indexOf(entry.target as HTMLDivElement)
+          if (idx === -1) return
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active')
+            setActiveIndex(idx)
+          } else {
+            entry.target.classList.remove('is-active')
+          }
+        })
+      },
+      { root: track, threshold: 0.55 }
+    )
+
+    slides.forEach(slide => observer.observe(slide))
+    return () => observer.disconnect()
+  }, [])
+
+  const goTo = (idx: number) => {
+    const slides = slideRefs.current.filter(Boolean) as HTMLDivElement[]
+    if (!slides[idx]) return
+    slides[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+  }
+
+  return (
+    <div className="bubble-swiper-section">
+      <div className="bubble-swiper-header">
+        <span className="bubble-swiper-label">SWIPE</span>
+      </div>
+
+      <div className="bubble-swiper-track" ref={trackRef} role="list">
+        {bubbleDrops.map((drop, i) => (
+          <div
+            key={`bswipe-${drop.title}`}
+            className="bubble-swiper-slide"
+            ref={el => { slideRefs.current[i] = el }}
+            role="listitem"
+          >
+            <MangaBubbleCard {...drop} />
+          </div>
+        ))}
+      </div>
+
+      <div className="bubble-swiper-dots" role="tablist" aria-label="Slide-Auswahl">
+        {bubbleDrops.map((_, i) => (
+          <button
+            key={`bdot-${i}`}
+            className={`bubble-swiper-dot${i === activeIndex ? ' is-active' : ''}`}
+            onClick={() => goTo(i)}
+            role="tab"
+            aria-selected={i === activeIndex}
+            aria-label={`Karte ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function MangaBubbleShowcase() {
   return (
     <section className="bubble-showcase" aria-labelledby="bubble-showcase-title">
@@ -110,6 +184,8 @@ export function MangaBubbleShowcase() {
           <MangaBubbleCard key={drop.title} {...drop} />
         ))}
       </div>
+
+      <BubbleSwiper />
     </section>
   )
 }
