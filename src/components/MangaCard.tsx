@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from 'react'
 import './MangaCard.css'
 
 export type MangaVariant = 'vinyl' | 'visor' | 'drink'
@@ -118,6 +119,60 @@ const mangaDrops: MangaCardProps[] = [
   },
 ]
 
+function MangaSwiper() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+
+    const handleScroll = () => {
+      const { scrollLeft, clientWidth } = track
+      const idx = Math.round(scrollLeft / clientWidth)
+      setActiveIndex(idx)
+    }
+
+    track.addEventListener('scroll', handleScroll, { passive: true })
+    return () => track.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const goTo = (idx: number) => {
+    const track = trackRef.current
+    if (!track) return
+    track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' })
+  }
+
+  return (
+    <div className="manga-swiper-section">
+      <div className="manga-swiper-header">
+        <span className="manga-swiper-eyebrow">Swipe</span>
+      </div>
+
+      <div className="manga-swiper-track" ref={trackRef} role="list">
+        {mangaDrops.map((drop) => (
+          <div key={`swipe-${drop.name}`} className="manga-swiper-slide" role="listitem">
+            <MangaCard {...drop} />
+          </div>
+        ))}
+      </div>
+
+      <div className="manga-swiper-dots" role="tablist" aria-label="Slide-Auswahl">
+        {mangaDrops.map((drop, i) => (
+          <button
+            key={`dot-${i}`}
+            className={`manga-swiper-dot${i === activeIndex ? ' is-active' : ''}`}
+            onClick={() => goTo(i)}
+            role="tab"
+            aria-selected={i === activeIndex}
+            aria-label={`Karte ${i + 1}: ${drop.name}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function MangaShowcase() {
   return (
     <section className="manga-showcase" aria-labelledby="manga-showcase-title">
@@ -137,6 +192,8 @@ export function MangaShowcase() {
           </div>
         ))}
       </div>
+
+      <MangaSwiper />
     </section>
   )
 }
