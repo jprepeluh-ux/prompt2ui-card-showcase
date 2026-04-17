@@ -162,6 +162,8 @@
   object-position: center;
   display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .bubble-card:hover .bubble-card__image,
