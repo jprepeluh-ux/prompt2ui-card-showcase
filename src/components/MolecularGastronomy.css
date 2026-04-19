@@ -79,7 +79,7 @@
 
 .mol-entry {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: clamp(3rem, 7vw, 8rem);
   align-items: center;
   padding: clamp(48px, 9vw, 100px) 0;
@@ -91,7 +91,10 @@
   border-bottom: 1px solid oklch(86% 0.01 75);
 }
 
-/* Even entries: image moves to the right */
+/* Even entries: image moves to the right, flip columns so image stays in wider slot */
+.mol-entry:nth-child(even) {
+  grid-template-columns: 1fr 1.2fr;
+}
 .mol-entry:nth-child(even) .mol-entry__image-col {
   order: 2;
 }
@@ -107,7 +110,7 @@
 
 .mol-entry__image-wrap {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   background: transparent;
   overflow: hidden;
 }
