@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Barlow:wght@300;400&display=swap');
+
+/* ─────────────────────────────────────────────────────────
+   Molecular Gastronomy — Editorial Spread
+   Bodoni Moda (display) + Barlow (body)
+   Theme: warm cream, ceremonial, unhurried
+───────────────────────────────────────────────────────── */
+
+.mol-showcase {
+  background: oklch(96.5% 0.009 75);
+  padding: clamp(80px, 12vw, 140px) clamp(24px, 7vw, 96px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Marble texture — SVG feTurbulence, static, no repaint cost */
+.mol-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='m'><feTurbulence type='turbulence' baseFrequency='0.006 0.002' numOctaves='5' seed='7' stitchTiles='stitch' result='noise'/><feColorMatrix type='saturate' values='0' in='noise' result='gray'/><feComponentTransfer in='gray'><feFuncR type='linear' slope='2.5' intercept='-0.5'/><feFuncG type='linear' slope='2.5' intercept='-0.5'/><feFuncB type='linear' slope='2.5' intercept='-0.5'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Content sits above marble texture */
+.mol-header,
+.mol-entries {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section Header ──────────────────────────────────────── */
+
+.mol-header {
+  text-align: center;
+  margin-bottom: clamp(56px, 10vw, 120px);
+}
+
+.mol-header__eyebrow {
+  display: inline-block;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  font-size: 10.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: oklch(60% 0.07 58);
+  margin-bottom: 24px;
+}
+
+.mol-header__title {
+  font-family: 'Bodoni Moda', serif;
+  font-weight: 400;
+  font-size: clamp(44px, 7vw, 96px);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: oklch(17% 0.014 75);
+  margin: 0;
+}
+
+.mol-header__rule {
+  width: clamp(48px, 8vw, 96px);
+  height: 1px;
+  background: oklch(60% 0.07 58);
+  margin: 32px auto 0;
+  border: none;
+}
+
+/* ── Course Entries ──────────────────────────────────────── */
+
+.mol-entries {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mol-entry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: center;
+  padding: clamp(48px, 9vw, 100px) 0;
+  border-top: 1px solid oklch(86% 0.01 75);
+  position: relative;
+}
+
+.mol-entry:last-child {
+  border-bottom: 1px solid oklch(86% 0.01 75);
+}
+
+/* Even entries: image moves to the right */
+.mol-entry:nth-child(even) .mol-entry__image-col {
+  order: 2;
+}
+.mol-entry:nth-child(even) .mol-entry__text-col {
+  order: 1;
+}
+
+/* ── Image ───────────────────────────────────────────────── */
+
+.mol-entry__image-col {
+  position: relative;
+}
+
+.mol-entry__image-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: transparent;
+  overflow: hidden;
+}
+
+.mol-entry__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mol-entry:hover .mol-entry__image {
+    transform: scale(1.025);
+  }
+}
+
+/* ── Text Column ─────────────────────────────────────────── */
+
+.mol-entry__text-col {
+  position: relative;
+  /* enough top padding so content clears the ghost number */
+  padding-top: clamp(48px, 6vw, 80px);
+}
+
+/* Ghost course number — sits behind text, purely decorative */
+.mol-entry__number {
+  font-family: 'Bodoni Moda', serif;
+  font-weight: 700;
+  font-size: clamp(96px, 14vw, 192px);
+  line-height: 1;
+  color: oklch(93% 0.008 75);
+  position: absolute;
+  top: -0.08em;
+  left: -0.05em;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
+}
+
+/* Clip wrapper for text line reveals */
+.mol-clip {
+  overflow: hidden;
+}
+
+/* ── Course name ─────────────────────────────────────────── */
+
+.mol-entry__name {
+  font-family: 'Bodoni Moda', serif;
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: oklch(17% 0.014 75);
+  margin: 0 0 18px;
+  position: relative;
+}
+
+/* Technique label */
+.mol-entry__technique {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: oklch(48% 0.10 58);
+  margin: 0 0 22px;
+  position: relative;
+}
+
+/* Description */
+.mol-entry__desc {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.8;
+  color: oklch(50% 0.014 75);
+  margin: 0;
+  max-width: 44ch;
+  position: relative;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .mol-entry {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: clamp(40px, 8vw, 64px) 0;
+  }
+
+  /* Reset alternating order on mobile */
+  .mol-entry:nth-child(even) .mol-entry__image-col,
+  .mol-entry:nth-child(even) .mol-entry__text-col {
+    order: unset;
+  }
+
+  .mol-entry__text-col {
+    padding-top: clamp(76px, 20vw, 96px);
+  }
+
+  .mol-header__title {
+    font-size: 56px;
+  }
+
+  .mol-entry__number {
+    font-size: clamp(120px, 32vw, 180px);
+  }
+
+  .mol-entry__name {
+    font-size: 36px;
+  }
+
+  .mol-entry__technique {
+    font-size: 12px;
+  }
+
+  .mol-entry__desc {
+    font-size: 16px;
+    max-width: 100%;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .mol-entry__image {
+    transition: none;
+  }
+}

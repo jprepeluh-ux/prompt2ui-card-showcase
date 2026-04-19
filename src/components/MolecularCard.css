@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* ── Molecular Gastronomy Showcase ──────────────────────── */
+
+.mol-showcase {
+  background: #fafaf8;
+  padding: clamp(72px, 10vw, 120px) clamp(24px, 6vw, 80px);
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.mol-showcase__header {
+  max-width: 640px;
+  margin: 0 auto clamp(40px, 6vw, 64px);
+  text-align: center;
+}
+
+.mol-tag {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #b8975a;
+  margin-bottom: 20px;
+}
+
+.mol-showcase__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #1a1a18;
+  margin: 0 0 20px;
+}
+
+.mol-showcase__byline {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #7a7870;
+  margin: 0;
+}
+
+/* ── Gold divider ────────────────────────────────────────── */
+
+.mol-divider {
+  height: 1px;
+  max-width: 1200px;
+  margin: 0 auto clamp(48px, 7vw, 72px);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #b8975a 30%,
+    #b8975a 70%,
+    transparent 100%
+  );
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+
+.mol-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+
+.mol-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/* Image container — fixed aspect ratio, object-contain so the full dish is visible */
+.mol-card__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #fafaf8;
+  overflow: hidden;
+}
+
+.mol-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mol-card:hover .mol-card__image {
+  transform: scale(1.03);
+}
+
+/* Gold underline reveal on hover */
+.mol-card__image-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #b8975a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mol-card:hover .mol-card__image-wrap::after {
+  transform: scaleX(1);
+}
+
+/* Dish index — bottom-left corner */
+.mol-card__index {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: rgba(26, 26, 24, 0.35);
+}
+
+/* ── Card text ───────────────────────────────────────────── */
+
+.mol-card__meta {
+  padding: 20px 0 0;
+  border-top: 1px solid rgba(26, 26, 24, 0.1);
+  transition: border-color 0.35s ease;
+}
+
+.mol-card:hover .mol-card__meta {
+  border-color: rgba(184, 151, 90, 0.5);
+}
+
+.mol-card__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.3;
+  color: #1a1a18;
+  margin: 0 0 10px;
+}
+
+.mol-card__desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 1.75;
+  color: #7a7870;
+  margin: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .mol-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .mol-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .mol-card__image {
+    transition: none;
+  }
+
+  .mol-card__image-wrap::after {
+    transition: none;
+  }
+}
