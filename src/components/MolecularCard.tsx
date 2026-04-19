@@ -69,8 +69,9 @@ function CourseEntry({ index, title, technique, description, imageSrc, numberCol
     offset: ['start end', 'end start'],
   })
 
-  // Parallax: text lags 80px behind image in both scroll directions
-  const rawScrollY = useTransform(scrollYProgress, [0, 1], [80, -80])
+  // Parallax: disabled on mobile — spring-on-scroll causes jank with iOS momentum scrolling
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
+  const rawScrollY = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [80, -80])
   const textY = useSpring(rawScrollY, { stiffness: 22, damping: 11, mass: 1.1 })
 
   // Accessibility: if reduced motion is preferred, render without animation

@@ -212,7 +212,7 @@
   }
 
   .mol-header__title {
-    font-size: 56px;
+    font-size: clamp(28px, 9.5vw, 56px);
   }
 
   .mol-entry__number {
