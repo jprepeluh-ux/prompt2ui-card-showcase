@@ -9,6 +9,7 @@ interface DishProps {
   description: string
   imageSrc: string
   numberColor: string
+  imageDecor?: boolean
 }
 
 const ease = [0.23, 1, 0.32, 1] as const
@@ -59,7 +60,7 @@ const lineVariants = {
   },
 }
 
-function CourseEntry({ index, title, technique, description, imageSrc, numberColor }: DishProps) {
+function CourseEntry({ index, title, technique, description, imageSrc, numberColor, imageDecor }: DishProps) {
   const reduceMotion = useReducedMotion()
   const ref = useRef<HTMLElement>(null)
 
@@ -74,11 +75,16 @@ function CourseEntry({ index, title, technique, description, imageSrc, numberCol
   const rawScrollY = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [80, -80])
   const textY = useSpring(rawScrollY, { stiffness: 22, damping: 11, mass: 1.1 })
 
+  // Image number parallax: softer spring, smaller range — drifts independently from the dish photo
+  const rawImageNumberY = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [24, -24])
+  const imageNumberY = useSpring(rawImageNumberY, { stiffness: 16, damping: 10, mass: 1.3 })
+
   // Accessibility: if reduced motion is preferred, render without animation
   if (reduceMotion) {
     return (
       <article className="mol-entry">
         <div className="mol-entry__image-col">
+          {imageDecor && <span className="mol-entry__image-number" aria-hidden="true">{index}</span>}
           <div className="mol-entry__image-wrap">
             <img className="mol-entry__image" src={imageSrc} alt={title} loading="lazy" decoding="async" />
           </div>
@@ -104,6 +110,11 @@ function CourseEntry({ index, title, technique, description, imageSrc, numberCol
     >
       {/* Image: first child — animates immediately on trigger */}
       <motion.div className="mol-entry__image-col" variants={imageVariants}>
+        {imageDecor && (
+          <motion.span className="mol-entry__image-number" aria-hidden="true" style={{ y: imageNumberY }}>
+            {index}
+          </motion.span>
+        )}
         <div className="mol-entry__image-wrap">
           <img
             className="mol-entry__image"
@@ -161,6 +172,7 @@ const dishes: DishProps[] = [
       'Compressed watermelon cubes with basil oil droplets, micro cress, geometric negative space plating.',
     imageSrc: '/molekularkueche_01__NEW_caviar-spherification%201.png',
     numberColor: 'oklch(93% 0.025 12)',
+    imageDecor: true,
   },
   {
     index: '02',
@@ -170,6 +182,7 @@ const dishes: DishProps[] = [
       'Translucent caviar pearl spherification in a delicate pool of saffron consommé gel, edible 24k gold leaf accents.',
     imageSrc: '/molekularkueche_02_NEW_caviar-spherification%203.png',
     numberColor: 'oklch(93% 0.028 78)',
+    imageDecor: true,
   },
   {
     index: '03',
@@ -179,6 +192,7 @@ const dishes: DishProps[] = [
       'Liquid nitrogen frozen chocolate sphere cracking open, revealing passionfruit foam and violet gel interior.',
     imageSrc: '/molekularkueche_03_NEW_The%20Cracking%20Sphere.png',
     numberColor: 'oklch(93% 0.02 305)',
+    imageDecor: true,
   },
 ]
 

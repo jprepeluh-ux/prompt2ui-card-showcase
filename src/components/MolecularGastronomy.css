@@ -26,6 +26,19 @@
   z-index: 0;
 }
 
+/* Grain noise — sits above everything including decorative numbers */
+.mol-showcase::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* Content sits above marble texture */
 .mol-header,
 .mol-entries {
@@ -113,6 +126,30 @@
   aspect-ratio: 1 / 1;
   background: transparent;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Large decorative number behind the product image */
+.mol-entry__image-number {
+  font-family: 'Bodoni Moda', serif;
+  font-weight: 700;
+  font-size: clamp(340px, 50vw, 640px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: oklch(28% 0.008 75);
+  opacity: 0.04;
+  position: absolute;
+  top: calc(-0.12em + 40px);
+  left: -0.08em;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Odd entries (01, 03): image on the left — shift number further left */
+.mol-entry:nth-child(odd) .mol-entry__image-number {
+  left: calc(-0.08em - 56px);
 }
 
 .mol-entry__image {
@@ -204,7 +241,11 @@
     padding: clamp(40px, 8vw, 64px) 0;
   }
 
-  /* Reset alternating order on mobile */
+  /* Reset even-entry grid and alternating order on mobile */
+  .mol-entry:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+
   .mol-entry:nth-child(even) .mol-entry__image-col,
   .mol-entry:nth-child(even) .mol-entry__text-col {
     order: unset;
