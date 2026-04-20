@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Azeret+Mono:wght@300;400&display=swap');
+
+/* ─────────────────────────────────────────────────────────
+   Molecular Gastronomy — Dark Chef's Log
+   Big Shoulders Display (display) + Azeret Mono (data/body)
+   Theme: obsidian, laboratory, specimens on a dark stage
+───────────────────────────────────────────────────────── */
+
+.mol-dark {
+  background-color: oklch(10% 0.009 55);
+  background-image: linear-gradient(
+    oklch(16% 0.007 55) 1px,
+    transparent 1px
+  );
+  background-size: 100% 48px;
+  padding: clamp(80px, 12vw, 140px) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Section Header ──────────────────────────────────────── */
+
+.mol-dark__header {
+  padding: 0 clamp(24px, 7vw, 96px);
+  margin-bottom: clamp(56px, 9vw, 112px);
+  position: relative;
+  z-index: 1;
+}
+
+.mol-dark__eyebrow {
+  display: block;
+  font-family: 'Azeret Mono', monospace;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: oklch(74% 0.14 75);
+  margin-bottom: 22px;
+}
+
+.mol-dark__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: clamp(56px, 10vw, 140px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: oklch(95% 0.005 60);
+  margin: 0;
+}
+
+.mol-dark__rule {
+  width: clamp(40px, 5vw, 72px);
+  height: 1px;
+  background: oklch(74% 0.14 75);
+  margin: 28px 0 0;
+  border: none;
+}
+
+/* ── Bands ───────────────────────────────────────────────── */
+
+.mol-dark__bands {
+  position: relative;
+  z-index: 1;
+}
+
+.mol-dark__band {
+  display: grid;
+  grid-template-columns: 72px 1fr 1fr;
+  gap: 0 clamp(2rem, 5vw, 5rem);
+  padding: clamp(40px, 7vw, 88px) clamp(24px, 7vw, 96px);
+  border-top: 1px solid oklch(20% 0.006 55);
+  align-items: center;
+}
+
+.mol-dark__band:last-child {
+  border-bottom: 1px solid oklch(20% 0.006 55);
+}
+
+/* ── Rotated course number ───────────────────────────────── */
+
+.mol-dark__number {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mol-dark__number span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: clamp(64px, 8vw, 112px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: oklch(74% 0.14 75);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  opacity: 0.6;
+  user-select: none;
+}
+
+/* ── Product image ───────────────────────────────────────── */
+
+.mol-dark__image {
+  position: relative;
+}
+
+.mol-dark__image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* ── Text column ─────────────────────────────────────────── */
+
+.mol-dark__text {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mol-dark__technique {
+  font-family: 'Azeret Mono', monospace;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: oklch(74% 0.14 75);
+  margin: 0;
+}
+
+.mol-dark__name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: oklch(95% 0.005 60);
+  margin: 0;
+}
+
+.mol-dark__desc {
+  font-family: 'Azeret Mono', monospace;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.9;
+  color: oklch(52% 0.010 55);
+  margin: 0;
+  max-width: 40ch;
+}
+
+.mol-dark__annotation {
+  font-family: 'Azeret Mono', monospace;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: oklch(36% 0.008 55);
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid oklch(20% 0.006 55);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .mol-dark__band {
+    grid-template-columns: 1fr;
+    gap: 24px 0;
+    padding: clamp(40px, 8vw, 64px) clamp(20px, 6vw, 40px);
+  }
+
+  .mol-dark__number {
+    display: none;
+  }
+
+  .mol-dark__image img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .mol-dark__desc {
+    max-width: 100%;
+  }
+
+  .mol-dark__title {
+    font-size: clamp(44px, 12vw, 80px);
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .mol-dark__image img {
+    transition: none;
+  }
+}

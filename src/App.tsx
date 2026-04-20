@@ -8,6 +8,8 @@ import { GlassShowcase } from './components/GlassCard'
 import { MangaBubbleShowcase } from './components/MangaBubbleCard'
 import { KFoodShowcase } from './components/KFoodCard'
 import { MolecularShowcase } from './components/MolecularCard'
+import { MolecularDark } from './components/MolecularDark'
+import { MolecularVivid } from './components/MolecularVivid'
 import { UnitXShowcase } from './components/UnitXCards'
 import { UnitXGalleryShowcase } from './components/UnitXGallery'
 
@@ -58,6 +60,8 @@ function App() {
       <MangaBubbleShowcase />
       <KFoodShowcase />
       <MolecularShowcase />
+      <MolecularDark />
+      <MolecularVivid />
       <UnitXShowcase />
       <UnitXGalleryShowcase />
     </>
